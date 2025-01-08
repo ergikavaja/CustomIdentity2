@@ -1,5 +1,6 @@
 ﻿using CustomIdentity2.Models;
 using CustomIdentity2.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,17 @@ namespace CustomIdentity2.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public class AdminController : Controller
+        {
+            public IActionResult Index()
+            {
+                return View();
+            }
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> LoginAsync(LoginVM model)

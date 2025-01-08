@@ -1,3 +1,4 @@
+﻿using CustomIdentity2;
 using CustomIdentity2.Data;
 using CustomIdentity2.Models;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,15 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(
 
 var app = builder.Build();
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var dbContext = services.GetRequiredService<AppDbContext>();
+    await Seeder.Initialize(services, userManager, roleManager, dbContext);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
