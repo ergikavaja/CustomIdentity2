@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using CustomIdentity2.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomIdentity2.Controllers

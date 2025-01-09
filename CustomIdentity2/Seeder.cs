@@ -35,7 +35,7 @@ namespace CustomIdentity2
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
-            // Note: 
+            // Note: ndrryshimi i emailit dhe pasw
             //else
             //{
             //    adminUser.Name = "Eris";

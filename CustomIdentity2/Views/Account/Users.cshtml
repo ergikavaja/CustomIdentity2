@@ -1,0 +1,51 @@
+﻿@model List<AppUser>
+@{
+    ViewData["Title"] = "User";
+ }
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of users</title>
+</head>
+<body>
+    <div class="d-flex">
+        <div class="align-self-end">
+            <h3>@ViewData["Title"]</h3>
+        </div>
+        <div class="ms-auto">
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary w-auto">Register</a>
+        </div>
+
+    </div>
+
+    <h4>List of users</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+             @if (Model != null)
+        {
+            int index = 1;
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th scope="row">@index</th>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                </tr>
+		    
+                index++;
+            }
+        }
+    </table>
+</body>
+</html>
+
