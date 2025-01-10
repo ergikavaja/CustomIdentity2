@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CustomIdentity2.Controllers
 {
-    public class AccountController(SignInManager<AppUser> _signInManager, UserManager<AppUser> _userManager, RoleManager<IdentityRole> roleManager) : Controller
+    public class AccountController(SignInManager<AppUser> _signInManager, UserManager<AppUser> _userManager, RoleManager<IdentityRole> _roleManager) : Controller
     {
         private readonly SignInManager<AppUser> signInManager = _signInManager;
         private readonly UserManager<AppUser> userManager = _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole> roleManager = _roleManager;
 
         //_roleManager = roleManager;
         public IActionResult Login()
@@ -49,7 +49,7 @@ namespace CustomIdentity2.Controllers
 
         }
 
-
+        [Authorize(Roles ="Admin,Manager")]
         public IActionResult Register()
         {
             return View();
@@ -61,7 +61,10 @@ namespace CustomIdentity2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.Name, Email = model.Email };
+                var user = new AppUser {
+                    UserName = model.Name,
+                    Email = model.Email, 
+                    Name = model.Name };
                 var result = await _userManager.CreateAsync((AppUser)user, model.Password);
 
                 if (result.Succeeded)
@@ -72,9 +75,9 @@ namespace CustomIdentity2.Controllers
                         await _userManager.AddToRoleAsync((AppUser)user, role);
                     }
 
-                    // Automatically log the user in after registration
-                    await _signInManager.SignInAsync((AppUser)user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    //// Automatically log the user in after registration
+                    //await _signInManager.SignInAsync((AppUser)user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");  // Redirect to home page
                 }
 
                 foreach (var error in result.Errors)

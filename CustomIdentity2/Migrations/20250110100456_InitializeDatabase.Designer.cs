@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomIdentity2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241223095909_initial")]
-    partial class initial
+    [Migration("20250110100456_InitializeDatabase")]
+    partial class InitializeDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
